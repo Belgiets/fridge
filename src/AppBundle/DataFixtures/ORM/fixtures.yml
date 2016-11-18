@@ -1,0 +1,17 @@
+AppBundle\Entity\Food:
+    food{1..3}:
+        name: '<name()>'
+
+AppBundle\Entity\Category:
+    category{1..3}:
+        name: '<name()>'
+        food: '@food<current()>'
+
+AppBundle\Entity\Item:
+    item{1..3}:
+        description: '<sentence()>'
+        qty: '<numberBetween(1, 5)>'
+        weight: '<randomFloat()>'
+        qr: 0110000101101111000110100010111001011011100010011010100001101
+        food: '@food<current()>'
+        category: '@category<current()>'
