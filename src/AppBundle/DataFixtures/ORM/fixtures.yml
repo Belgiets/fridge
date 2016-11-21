@@ -1,15 +1,21 @@
 AppBundle\Entity\Food:
     food{1..3}:
         name: '<numerify("Food ###")>'
+        created_at: '<dateTimeThisMonth()>'
+        updated_at: '<dateTimeThisMonth()>'
 
 AppBundle\Entity\Category:
     category{1..3}:
         name: '<numerify("Food category ###")>'
         food: '@food<current()>'
+        created_at: '<dateTimeThisMonth()>'
+        updated_at: '<dateTimeThisMonth()>'
 
 AppBundle\Entity\Shelf:
     shelf{1..3}:
         name: '<numerify("Shelf ###")>'
+        created_at: '<dateTimeThisMonth()>'
+        updated_at: '<dateTimeThisMonth()>'
 
 AppBundle\Entity\Item:
     item{1..3}:
@@ -20,3 +26,5 @@ AppBundle\Entity\Item:
         food: '@food<current()>'
         shelf: '@shelf<current()>'
         category: '@category<current()>'
+        created_at: '<dateTimeThisMonth()>'
+        updated_at: '<dateTimeThisMonth()>'

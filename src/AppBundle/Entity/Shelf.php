@@ -30,6 +30,20 @@ class Shelf
     private $name;
 
     /**
+     * @var datetime $createdAt
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @var datetime $updatedAt
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
+    /**
      * @ORM\OneToMany(targetEntity="Item", mappedBy="shelf")
      */
     private $items;
@@ -40,6 +54,34 @@ class Shelf
     public function __construct()
     {
         $this->items = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt() {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt) {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return \AppBundle\Entity\datetime
+     */
+    public function getUpdatedAt() {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \AppBundle\Entity\datetime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt) {
+        $this->updatedAt = $updatedAt;
     }
 
     /**

@@ -50,6 +50,20 @@ class Item
     private $qr;
 
     /**
+     * @var datetime $createdAt
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @var datetime $updatedAt
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Food", inversedBy="items")
      * @ORM\JoinColumn(name="food_id", referencedColumnName="id")
      */
@@ -66,6 +80,34 @@ class Item
      * @ORM\JoinColumn(name="Shelf_id", referencedColumnName="id")
      */
     private $shelf;
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt() {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt) {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt() {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param mixed $updatedAt
+     */
+    public function setUpdatedAt($updatedAt) {
+        $this->updatedAt = $updatedAt;
+    }
 
     /**
      * @return mixed

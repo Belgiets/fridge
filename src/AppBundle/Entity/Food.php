@@ -30,6 +30,20 @@ class Food
     private $name;
 
     /**
+     * @var datetime $createdAt
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @var datetime $updatedAt
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
+    /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="food")
      */
     private $categories;
@@ -46,6 +60,34 @@ class Food
     {
         $this->categories = new ArrayCollection();
         $this->items = new ArrayCollection();
+    }
+
+    /**
+     * @return \AppBundle\Entity\datetime
+     */
+    public function getCreatedAt() {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \AppBundle\Entity\datetime $createdAt
+     */
+    public function setCreatedAt($createdAt) {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return \AppBundle\Entity\datetime
+     */
+    public function getUpdatedAt() {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \AppBundle\Entity\datetime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt) {
+        $this->updatedAt = $updatedAt;
     }
 
     /**
