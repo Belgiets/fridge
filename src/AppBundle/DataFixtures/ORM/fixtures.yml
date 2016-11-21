@@ -1,11 +1,15 @@
 AppBundle\Entity\Food:
     food{1..3}:
-        name: '<name()>'
+        name: '<numerify("Food ###")>'
 
 AppBundle\Entity\Category:
     category{1..3}:
-        name: '<name()>'
+        name: '<numerify("Food category ###")>'
         food: '@food<current()>'
+
+AppBundle\Entity\Shelf:
+    shelf{1..3}:
+        name: '<numerify("Shelf ###")>'
 
 AppBundle\Entity\Item:
     item{1..3}:
@@ -14,4 +18,5 @@ AppBundle\Entity\Item:
         weight: '<randomFloat()>'
         qr: 0110000101101111000110100010111001011011100010011010100001101
         food: '@food<current()>'
+        shelf: '@shelf<current()>'
         category: '@category<current()>'

@@ -62,6 +62,26 @@ class Item
     private $category;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Shelf", inversedBy="items")
+     * @ORM\JoinColumn(name="Shelf_id", referencedColumnName="id")
+     */
+    private $shelf;
+
+    /**
+     * @return mixed
+     */
+    public function getShelf() {
+        return $this->shelf;
+    }
+
+    /**
+     * @param mixed $shelf
+     */
+    public function setShelf($shelf) {
+        $this->shelf = $shelf;
+    }
+
+    /**
      * Get id
      *
      * @return int
