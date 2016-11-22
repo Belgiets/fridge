@@ -1,0 +1,24 @@
+{
+  "name": "frontend-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "https://github.com/twbs/bootstrap/tarball/v4-dev",
+    "angular": "1.0.0"
+  },
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-sass": "*",
+    "gulp-minify-css": "*",
+    "gulp-concat": "*",
+    "gulp-uglify": "*",
+    "gulp-watch": "*",
+    "gulp-imagemin": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
