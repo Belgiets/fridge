@@ -5,9 +5,15 @@ var concat = require('gulp-concat');
 var watch = require('gulp-watch');
 var sass = require('gulp-sass');
 var imagemin = require('gulp-imagemin');
+var gulpif = require('gulp-if');
 
 var jsSrc = [
   './node_modules/bootstrap/dist/js/bootstrap.min.js',
+  './node_modules/angular/lib/angular.min.js',
+  './node_modules/angular-route/angular-route.min.js',
+  './src/app/controllers/*.js',
+  './src/app/services/*.js',
+  './src/app/app.js',
   './src/js/**/*.js'
 ];
 
@@ -44,8 +50,8 @@ gulp.task('css', function(){
 // uglify
 gulp.task('js', function() {
     gulp.src(jsSrc)
-        .pipe(uglify())
-        .pipe(concat("app.min.js"))
+        .pipe(gulpif('*.js', uglify()))
+        .pipe(concat("main.min.js"))
         .pipe(gulp.dest('./public/js'));
 });
 
