@@ -8,8 +8,10 @@ var imagemin = require('gulp-imagemin');
 var gulpif = require('gulp-if');
 
 var jsSrc = [
+  './node_modules/tether/dist/js/tether.min.js',
+  './node_modules/jquery/dist/jquery.min.js',
   './node_modules/bootstrap/dist/js/bootstrap.min.js',
-  './node_modules/angular/lib/angular.min.js',
+  './node_modules/angular/angular.min.js',
   './node_modules/angular-route/angular-route.min.js',
   './src/app/controllers/*.js',
   './src/app/services/*.js',
@@ -29,50 +31,50 @@ var cssSrc = [
 
 // sass
 gulp.task('sass', function () {
-    gulp.src(scssSrc)
-        .pipe(sass({
-            noCache: true,
-            style: "expanded",
-            lineNumbers: true,
-            loadPath: './src/sass/*'
-        }))
-        .pipe(gulp.dest('./src/css'));
+  gulp.src(scssSrc)
+    .pipe(sass({
+      noCache: true,
+      style: "expanded",
+      lineNumbers: true,
+      loadPath: './src/sass/*'
+    }))
+    .pipe(gulp.dest('./src/css'));
 });
 
 // css
 gulp.task('css', function(){
-    gulp.src(cssSrc)
-        .pipe(minify())
-        .pipe(concat('styles.min.css'))
-        .pipe(gulp.dest('./public/css'))
+  gulp.src(cssSrc)
+    .pipe(minify())
+    .pipe(concat('styles.min.css'))
+    .pipe(gulp.dest('./public/css'))
 });
 
 // uglify
 gulp.task('js', function() {
-    gulp.src(jsSrc)
-        .pipe(gulpif('*.js', uglify()))
-        .pipe(concat("main.min.js"))
-        .pipe(gulp.dest('./public/js'));
+  gulp.src(jsSrc)
+    .pipe(gulpif('*.js', uglify()))
+    .pipe(concat("main.min.js"))
+    .pipe(gulp.dest('./public/js'));
 });
 
 // images
 gulp.task('images', function() {
-        gulp.src('src/img/*')
-            .pipe(imagemin())
-            .pipe(gulp.dest('./public/img'))
-    }
+    gulp.src('src/img/*')
+      .pipe(imagemin())
+      .pipe(gulp.dest('./public/img'))
+  }
 );
 
 gulp.task('watch', function() {
-    // watch scss files
-    gulp.watch(scssSrc, ['sass']);
+  // watch scss files
+  gulp.watch(scssSrc, ['sass']);
 
-    // watch css files
-    gulp.watch('./src/css/**/*.css', ['css']);
+  // watch css files
+  gulp.watch('./src/css/**/*.css', ['css']);
 
-    // watch js files
-    gulp.watch(jsSrc, ['js']);
+  // watch js files
+  gulp.watch(jsSrc, ['js']);
 
-    // watch images files
-    gulp.watch(['src/img/*'], ['images']);
+  // watch images files
+  gulp.watch(['src/img/*'], ['images']);
 });
