@@ -6,6 +6,7 @@ var watch = require('gulp-watch');
 var sass = require('gulp-sass');
 var imagemin = require('gulp-imagemin');
 var gulpif = require('gulp-if');
+var clean = require('gulp-clean');
 
 var jsSrc = [
   './node_modules/tether/dist/js/tether.min.js',
@@ -44,7 +45,7 @@ gulp.task('sass', function () {
 // css
 gulp.task('css', function(){
   gulp.src(cssSrc)
-    .pipe(minify())
+    .pipe(gulpif('*.css', minify()))
     .pipe(concat('styles.min.css'))
     .pipe(gulp.dest('./angular/css'))
 });
@@ -65,6 +66,11 @@ gulp.task('images', function() {
   }
 );
 
+gulp.task('clean', function () {
+  return gulp.src(['angular/css/*', 'angular/js/libs/*'])
+    .pipe(clean());
+});
+
 gulp.task('watch', function() {
   // watch scss files
   gulp.watch(scssSrc, ['sass']);
@@ -79,7 +85,7 @@ gulp.task('watch', function() {
   gulp.watch(['web-src/img/*'], ['images']);
 });
 
-gulp.task('default', function () {
+gulp.task('default', ['clean'], function () {
   var tasks = ['sass', 'css', 'js', 'images'];
 
   tasks.forEach(function (val) {
