@@ -13,20 +13,20 @@ var jsSrc = [
   './node_modules/bootstrap/dist/js/bootstrap.min.js',
   './node_modules/angular/angular.min.js',
   './node_modules/angular-route/angular-route.min.js',
-  './src/app/controllers/*.js',
-  './src/app/services/*.js',
-  './src/app/app.js',
-  './src/js/**/*.js'
+  // './src/app/controllers/*.js',
+  // './src/app/services/*.js',
+  // './src/app/app.js',
+  // './src/js/**/*.js'
 ];
 
 var scssSrc = [
-  './src/sass/**/*.scss',
-  './src/sass/**/_*.scss'
+  './web-src/sass/**/*.scss',
+  './web-src/sass/**/_*.scss'
 ];
 
 var cssSrc = [
   './node_modules/bootstrap/dist/css/bootstrap-flex.min.css',
-  './src/css/**/*.css'
+  './web-src/css/**/*.css'
 ];
 
 // sass
@@ -36,7 +36,7 @@ gulp.task('sass', function () {
       noCache: true,
       style: "expanded",
       lineNumbers: true,
-      loadPath: './src/sass/*'
+      loadPath: './web-src/sass/*'
     }))
     .pipe(gulp.dest('./src/css'));
 });
@@ -46,22 +46,22 @@ gulp.task('css', function(){
   gulp.src(cssSrc)
     .pipe(minify())
     .pipe(concat('styles.min.css'))
-    .pipe(gulp.dest('./public/css'))
+    .pipe(gulp.dest('./angular/css'))
 });
 
 // uglify
 gulp.task('js', function() {
   gulp.src(jsSrc)
     .pipe(gulpif('*.js', uglify()))
-    .pipe(concat("main.min.js"))
-    .pipe(gulp.dest('./public/js'));
+    .pipe(concat("libs.min.js"))
+    .pipe(gulp.dest('./angular/js/libs'));
 });
 
 // images
 gulp.task('images', function() {
-    gulp.src('src/img/*')
+    gulp.src('web-src/img/*')
       .pipe(imagemin())
-      .pipe(gulp.dest('./public/img'))
+      .pipe(gulp.dest('./angular/img'))
   }
 );
 
@@ -70,11 +70,19 @@ gulp.task('watch', function() {
   gulp.watch(scssSrc, ['sass']);
 
   // watch css files
-  gulp.watch('./src/css/**/*.css', ['css']);
+  gulp.watch('./web-src/css/**/*.css', ['css']);
 
   // watch js files
   gulp.watch(jsSrc, ['js']);
 
   // watch images files
-  gulp.watch(['src/img/*'], ['images']);
+  gulp.watch(['web-src/img/*'], ['images']);
+});
+
+gulp.task('default', function () {
+  var tasks = ['sass', 'css', 'js', 'images'];
+
+  tasks.forEach(function (val) {
+    gulp.start(val);
+  });
 });

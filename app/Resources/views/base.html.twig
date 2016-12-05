@@ -5,12 +5,10 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <link rel="stylesheet" href="{{ asset('public/css/styles.min.css') }}" />
     </head>
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}
-            <script src="{{ asset('public/js/main.min.js') }}"></script>
         {% endblock %}
     </body>
 </html>
