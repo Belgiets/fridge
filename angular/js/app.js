@@ -1,1 +1,1 @@
-angular.module("Fridge", ['ngRoute'])
+angular.module("Fridge", ['ngRoute', ])
