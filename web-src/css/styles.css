@@ -1,3 +1,15 @@
-/* Medium Devices, Desktops */
-/* Small Devices, Tablets */
-/* Extra Small Devices, Phones */
+@media screen and (min-width: 34em) {
+  body {
+    background-color: #9fdf9f !important; } }
+
+@media screen and (min-width: 48em) {
+  body {
+    background-color: #8cd98c !important; } }
+
+@media screen and (min-width: 62em) {
+  body {
+    background-color: #79d279 !important; } }
+
+@media screen and (min-width: 75em) {
+  body {
+    background-color: #66cc66 !important; } }
