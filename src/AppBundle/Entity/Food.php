@@ -30,14 +30,14 @@ class Food
     private $name;
 
     /**
-     * @var datetime $createdAt
+     * @var \DateTime $createdAt
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
 
     /**
-     * @var datetime $updatedAt
+     * @var |DateTime $updatedAt
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
@@ -47,6 +47,11 @@ class Food
      * @ORM\OneToMany(targetEntity="Category", mappedBy="food")
      */
     private $categories;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser", inversedBy="categories")
+     */
+    private $createdBy;
 
     /**
      * @ORM\OneToMany(targetEntity="Item", mappedBy="food")
@@ -63,28 +68,28 @@ class Food
     }
 
     /**
-     * @return \AppBundle\Entity\datetime
+     * @return \DateTime
      */
     public function getCreatedAt() {
         return $this->createdAt;
     }
 
     /**
-     * @param \AppBundle\Entity\datetime $createdAt
+     * @param $createdAt
      */
     public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
     }
 
     /**
-     * @return \AppBundle\Entity\datetime
+     * @return mixed
      */
     public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
     /**
-     * @param \AppBundle\Entity\datetime $updatedAt
+     * @param $updatedAt
      */
     public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
@@ -132,10 +137,27 @@ class Food
     }
 
     /**
-     * @param mixed $categories
+     * @param \AppBundle\Entity\Category $category
+     * @return $this
      */
-    public function setCategories($categories) {
-        $this->categories = $categories;
+    public function addCategory(Category $category)
+    {
+        if (!$this->getCategories()->contains($category)) {
+            $this->getCategories()->add($category);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param \AppBundle\Entity\Category $category
+     * @return $this
+     */
+    public function removeCategory(Category $category)
+    {
+        $this->categories->removeElement($category);
+
+        return $this;
     }
 
     /**
@@ -146,10 +168,41 @@ class Food
     }
 
     /**
-     * @param mixed $items
+     * @param \AppBundle\Entity\Item $item
+     * @return $this
      */
-    public function setItems($items) {
-        $this->items = $items;
+    public function addItem(Item $item)
+    {
+        if (!$this->getItems()->contains($item)) {
+            $this->getItems()->add($item);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param \AppBundle\Entity\Item $item
+     * @return $this
+     */
+    public function removeItem(Item $item)
+    {
+        $this->items->removeElement($item);
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedBy() {
+        return $this->createdBy;
+    }
+
+    /**
+     * @param mixed $createdBy
+     */
+    public function setCreatedBy($createdBy) {
+        $this->createdBy = $createdBy;
     }
 }
 

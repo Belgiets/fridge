@@ -2,7 +2,6 @@
 @import "mixins";
 
 body {
-  
   @include breakpoint($bp-sm) {
     background-color: #9fdf9f !important;
   }

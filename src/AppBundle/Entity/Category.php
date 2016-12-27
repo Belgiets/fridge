@@ -30,14 +30,14 @@ class Category
     private $name;
 
     /**
-     * @var datetime $createdAt
+     * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
 
     /**
-     * @var datetime $updatedAt
+     * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
@@ -48,6 +48,11 @@ class Category
      * @ORM\JoinColumn(name="food_id", referencedColumnName="id")
      */
     private $food;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser", inversedBy="categories")
+     */
+    private $createdBy;
 
     /**
      * @ORM\OneToMany(targetEntity="Item", mappedBy="category")
@@ -108,10 +113,27 @@ class Category
     }
 
     /**
-     * @param mixed $items
+     * @param \AppBundle\Entity\Item $item
+     * @return $this
      */
-    public function setItems($items) {
-        $this->items = $items;
+    public function addItem(Item $item)
+    {
+        if (!$this->getItems()->contains($item)) {
+            $this->getItems()->add($item);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param \AppBundle\Entity\Item $item
+     * @return $this
+     */
+    public function removeItem(Item $item)
+    {
+        $this->items->removeElement($item);
+
+        return $this;
     }
 
     /**
@@ -146,6 +168,20 @@ class Category
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedBy() {
+        return $this->createdBy;
+    }
+
+    /**
+     * @param mixed $createdBy
+     */
+    public function setCreatedBy($createdBy) {
+        $this->createdBy = $createdBy;
     }
 }
 

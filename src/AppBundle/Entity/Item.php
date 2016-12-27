@@ -50,14 +50,14 @@ class Item
     private $qr;
 
     /**
-     * @var datetime $createdAt
+     * @var \DateTime $createdAt
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
 
     /**
-     * @var datetime $updatedAt
+     * @var \DateTime $updatedAt
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
@@ -80,6 +80,11 @@ class Item
      * @ORM\JoinColumn(name="Shelf_id", referencedColumnName="id")
      */
     private $shelf;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser", inversedBy="categories")
+     */
+    private $createdBy;
 
     /**
      * @return mixed
@@ -255,6 +260,20 @@ class Item
      */
     public function setCategory($category) {
         $this->category = $category;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedBy() {
+        return $this->createdBy;
+    }
+
+    /**
+     * @param mixed $createdBy
+     */
+    public function setCreatedBy($createdBy) {
+        $this->createdBy = $createdBy;
     }
 }
 

@@ -30,18 +30,23 @@ class Shelf
     private $name;
 
     /**
-     * @var datetime $createdAt
+     * @var |DateTime $createdAt
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     private $createdAt;
 
     /**
-     * @var datetime $updatedAt
+     * @var |DateTime $updatedAt
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\SuperAdminUser", inversedBy="shelves")
+     */
+    private $createdBy;
 
     /**
      * @ORM\OneToMany(targetEntity="Item", mappedBy="shelf")
@@ -71,14 +76,14 @@ class Shelf
     }
 
     /**
-     * @return \AppBundle\Entity\datetime
+     * @return mixed
      */
     public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
     /**
-     * @param \AppBundle\Entity\datetime $updatedAt
+     * @param $updatedAt
      */
     public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
@@ -92,10 +97,27 @@ class Shelf
     }
 
     /**
-     * @param mixed $items
+     * @param \AppBundle\Entity\Item $item
+     * @return $this
      */
-    public function setItems($items) {
-        $this->items = $items;
+    public function addItem(Item $item)
+    {
+        if (!$this->getItems()->contains($item)) {
+            $this->getItems()->add($item);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param \AppBundle\Entity\Item $item
+     * @return $this
+     */
+    public function removeItem(Item $item)
+    {
+        $this->items->removeElement($item);
+
+        return $this;
     }
 
     /**
@@ -130,6 +152,20 @@ class Shelf
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedBy() {
+        return $this->createdBy;
+    }
+
+    /**
+     * @param mixed $createdBy
+     */
+    public function setCreatedBy($createdBy) {
+        $this->createdBy = $createdBy;
     }
 }
 
