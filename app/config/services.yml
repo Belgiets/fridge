@@ -7,3 +7,11 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    create.admin.command:
+        class: AppBundle\Command\CreateAdminCommand
+        arguments:
+            - "@security.password_encoder"
+            - "@doctrine"
+            - "@validator"
+        tags:
+            - { name: console.command }
