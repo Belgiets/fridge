@@ -9,13 +9,15 @@ security:
             algorithm: bcrypt
 
     role_hierarchy:
-        ROLE_SUPERADMIN: [ROLE_ADMIN]
+        ROLE_SUPERADMIN: [ROLE_USER, ROLE_ADMIN]
         ROLE_ADMIN: [ROLE_USER]
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+        db:
+            entity:
+                class: AppBundle\Entity\User\BaseUser
+                property: email
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -25,6 +27,12 @@ security:
 
         main:
             anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
+            logout:
+                path:   logout
+                target: /
             # activate different ways to authenticate
 
             # http_basic: ~

@@ -1,51 +1,17 @@
 {% extends '::base.html.twig' %}
 
 {% block header %}
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ path('homepage') }}">
-                    <div class="navbar-brand-wrap">
-                        <img src="{{ asset('img/logo.png') }}" alt="">
-                    </div>
-                </a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
-                <ul class="nav navbar-nav navbar-right">
-                    {#{% block menu %}#}
-                        {#{% if is_granted('ROLE_SUPERADMIN') %}#}
-                            {#<li><a href="{{ path('admin_users_index') }}">{{ 'menu.users'|trans }}</a></li>#}
-                            {#<li><a href="{{ path('admin_regions_index') }}">{{ 'menu.regions'|trans }}</a></li>#}
-                        {#{% elseif is_granted('ROLE_ADMIN') %}#}
-                            {#<li><a href="{{ path('animal_cards_dashboard') }}">{{ 'menu.animals'|trans }}</a></li>#}
-                        {#{% else %}#}
-                            {#<li><a href="{{ path('homepage') }}">{{ 'menu.animals'|trans }}</a></li>#}
-                        {#{% endif %}#}
-                    {#{% endblock menu %}#}
-                    {#{% if app.user %}#}
-                        {#<li><a href="{{ logout_path("main") }}">{{ 'menu.logout'|trans }}</a></li>#}
-                    {#{% else %}#}
-                        {#<li><a href="{{ path("login") }}">{{ 'menu.login'|trans }}</a></li>#}
-                    {#{% endif %}#}
-                </ul>
-                <ul class="nav navbar-nav navbar-right lang-menu">
-                    {#{% set locale = app.request.get('_route_params')['_locale'] %}#}
-                    {#<li class="{{ locale == "en" ? 'active' : '' }}">#}
-                        {#<a class="flag uk" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}">en</a>#}
-                    {#</li>#}
-                    {#<li class="{{ locale == "ua" ? 'active' : '' }}">#}
-                        {#<a class="flag ua" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'ua'})) }}">ua</a>#}
-                    {#</li>#}
-                </ul>
-            </div>
-        </div>
+    <nav class="navbar navbar-fixed-top navbar-light bg-faded">
+        <a class="navbar-brand" href="/">
+            <img src="{{ asset('img/logo.png') }}" alt="Home">
+        </a>
     </nav>
+
+    {#{% if app.user %}#}
+        {#<li><a href="{{ logout_path("main") }}">Logout</a></li>#}
+    {#{% else %}#}
+        {#<li><a href="{{ path("login") }}">Login</a></li>#}
+    {#{% endif %}#}
 {% endblock header %}
 
 {% block content %}{% endblock content %}
@@ -53,7 +19,9 @@
 
 {% block body %}
     <header>
-        {{ block('header') }}
+        <div class="container">
+            {{ block('header') }}
+        </div>
     </header>
 
     <div role="main" class="content-wr container">
