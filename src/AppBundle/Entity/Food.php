@@ -49,9 +49,15 @@ class Food
     private $categories;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser", inversedBy="categories")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser", inversedBy="foods")
+     * @ORM\JoinColumn(referencedColumnName="id", onDelete="SET NULL")
      */
     private $createdBy;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser")
+     */
+    private $updatedBy;
 
     /**
      * @ORM\OneToMany(targetEntity="Item", mappedBy="food")
@@ -203,6 +209,22 @@ class Food
      */
     public function setCreatedBy($createdBy) {
         $this->createdBy = $createdBy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    /**
+     * @param mixed $updatedBy
+     */
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
     }
 }
 

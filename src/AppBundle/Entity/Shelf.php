@@ -45,8 +45,14 @@ class Shelf
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\SuperAdminUser", inversedBy="shelves")
+     * @ORM\JoinColumn(referencedColumnName="id", onDelete="SET NULL")
      */
     private $createdBy;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\SuperAdminUser")
+     */
+    private $updatedBy;
 
     /**
      * @ORM\OneToMany(targetEntity="Item", mappedBy="shelf")
@@ -166,6 +172,22 @@ class Shelf
      */
     public function setCreatedBy($createdBy) {
         $this->createdBy = $createdBy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    /**
+     * @param mixed $updatedBy
+     */
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
     }
 }
 

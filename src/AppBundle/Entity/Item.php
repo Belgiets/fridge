@@ -64,6 +64,17 @@ class Item
     private $updatedAt;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser", inversedBy="items")
+     * @ORM\JoinColumn(referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $createdBy;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser")
+     */
+    private $updatedBy;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Food", inversedBy="items")
      * @ORM\JoinColumn(name="food_id", referencedColumnName="id")
      */
@@ -80,11 +91,6 @@ class Item
      * @ORM\JoinColumn(name="Shelf_id", referencedColumnName="id")
      */
     private $shelf;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser", inversedBy="categories")
-     */
-    private $createdBy;
 
     /**
      * @return mixed
@@ -274,6 +280,22 @@ class Item
      */
     public function setCreatedBy($createdBy) {
         $this->createdBy = $createdBy;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    /**
+     * @param mixed $updatedBy
+     */
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
     }
 }
 
