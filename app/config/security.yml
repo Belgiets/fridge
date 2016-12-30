@@ -4,9 +4,11 @@ security:
     encoders:
         AppBundle\Entity\User\SuperAdminUser:
             algorithm: bcrypt
+            cost:      15
 
         AppBundle\Entity\User\AdminUser:
             algorithm: bcrypt
+            cost:      15
 
     role_hierarchy:
         ROLE_SUPERADMIN: [ROLE_USER, ROLE_ADMIN]

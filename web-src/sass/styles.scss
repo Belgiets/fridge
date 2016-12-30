@@ -2,19 +2,19 @@
 @import "mixins";
 
 body {
-  @include breakpoint($bp-sm) {
-    background-color: #9fdf9f !important;
-  }
-
-  @include breakpoint($bp-md) {
-    background-color: #8cd98c !important;
-  }
-
-  @include breakpoint($bp-lg) {
-    background-color: #79d279 !important;
-  }
-
-  @include breakpoint($bp-xl) {
-    background-color: #66cc66 !important;
-  }
+  //@include breakpoint($bp-sm) {
+  //  background-color: #9fdf9f !important;
+  //}
+  //
+  //@include breakpoint($bp-md) {
+  //  background-color: #8cd98c !important;
+  //}
+  //
+  //@include breakpoint($bp-lg) {
+  //  background-color: #79d279 !important;
+  //}
+  //
+  //@include breakpoint($bp-xl) {
+  //  background-color: #66cc66 !important;
+  //}
 }
