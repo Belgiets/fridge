@@ -1,6 +1,12 @@
 @import "variables";
 @import "mixins";
 
+.navbar-nav {
+  .nav-item {
+    float: left;
+  }
+}
+
 body {
   //@include breakpoint($bp-sm) {
   //  background-color: #9fdf9f !important;
