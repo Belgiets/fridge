@@ -40,20 +40,20 @@ class ShelfController extends Controller
     public function newAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $category = new Shelf();
+        $shelf = new Shelf();
 
         $user = $this->getUser();
 
-        $category->setCreatedBy($user);
-        $category->setUpdatedBy($user);
-        $category->setUpdatedAt(new \DateTime());
+        $shelf->setCreatedBy($user);
+        $shelf->setUpdatedBy($user);
+        $shelf->setUpdatedAt(new \DateTime());
 
         /** @var Form $form */
-        $form = $this->createForm(ShelfType::class, $category, ['user' => $user]);
+        $form = $this->createForm(ShelfType::class, $shelf, ['user' => $user]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em->persist($category);
+            $em->persist($shelf);
             $em->flush();
 
             return $this->redirectToRoute('shelves_index');

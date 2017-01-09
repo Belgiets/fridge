@@ -1,2 +1,8 @@
-.navbar-nav .nav-item {
-  float: left; }
+.navbar-brand {
+  height: 143px; }
+
+.content-wr {
+  margin-top: 143px; }
+
+.menu-wr {
+  overflow: hidden; }

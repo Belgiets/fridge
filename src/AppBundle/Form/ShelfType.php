@@ -14,7 +14,12 @@ class ShelfType extends AbstractType
     {
         $builder
             // ...
-            ->add('save', SubmitType::class, array('label' => 'Save'))
+            ->add('save', SubmitType::class, [
+                'label' => 'Save',
+                'attr' => [
+                    'class' => 'btn btn-success',
+                ],
+            ])
         ;
     }
 
@@ -23,6 +28,7 @@ class ShelfType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => Shelf::class,
             'csrf_protection' => false,
+            'user' => null
         ));
     }
 
