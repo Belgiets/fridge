@@ -61,9 +61,9 @@ gulp.task('images', function() {
   }
 );
 gulp.task('fonts', function() {
-        gulp.src('./node_modules/flexslider/fonts/*')
+        gulp.src('./node_modules/bootstrap/fonts/*')
             .pipe(imagemin())
-            .pipe(gulp.dest('./web/css/fonts'))
+            .pipe(gulp.dest('./web/fonts'))
     }
 );
 gulp.task('clean', function () {

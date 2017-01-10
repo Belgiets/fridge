@@ -6,3 +6,9 @@
 
 .menu-wr {
   overflow: hidden; }
+
+.actions {
+  margin: 0 0 15px; }
+
+.glyphicon.glyphicon-floppy-remove {
+  color: #d9534f; }

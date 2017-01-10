@@ -12,6 +12,21 @@
 .menu-wr {
   overflow: hidden;
 }
+
+.actions {
+  margin: 0 0 15px;
+}
+
+.glyphicon {
+  &.glyphicon-edit {
+
+  }
+
+  &.glyphicon-floppy-remove {
+    color: #d9534f;
+  }
+}
+
 body {
   //@include breakpoint($bp-sm) {
   //  background-color: #9fdf9f !important;

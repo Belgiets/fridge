@@ -8,11 +8,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/shelves")
+ * @Security("has_role('ROLE_SUPERADMIN')")
  */
 class ShelfController extends Controller
 {
@@ -31,7 +33,7 @@ class ShelfController extends Controller
     }
 
     /**
-     * @Route("/new", name="shelf_new")`
+     * @Route("/new", name="shelf_new")
      * @Template("AppBundle:Shelf:form.html.twig")
      *
      * @param Request $request
@@ -64,7 +66,6 @@ class ShelfController extends Controller
 
     /**
      * @Route("/edit/{id}", name="shelf_edit", requirements={"id": "\d+"})
-     *
      * @Template("AppBundle:Shelf:form.html.twig")
      *
      * @param Request $request

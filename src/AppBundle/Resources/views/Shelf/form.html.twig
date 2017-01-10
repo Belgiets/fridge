@@ -1,6 +1,10 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block content %}
+    <h1 class="page-header">Shelf create/edit</h1>
+    <div class="actions">
+        <button class="btn btn-primary" onclick="window.history.back()">Back</button>
+    </div>
     {{ form_start(form, {'attr': {'class': 'shelf-form'} }) }}
         {{ form_widget(form) }}
     {{ form_end(form) }}
