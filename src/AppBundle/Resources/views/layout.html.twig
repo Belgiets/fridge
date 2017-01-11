@@ -22,6 +22,9 @@
                         </li>
                         {% if is_granted('ROLE_SUPERADMIN') %}
                             <li>
+                                <a href="{{ path('users_index') }}">Users</a>
+                            </li>
+                            <li>
                                 <a href="{{ path('shelves_index') }}">Shelves</a>
                             </li>
                         {% endif %}

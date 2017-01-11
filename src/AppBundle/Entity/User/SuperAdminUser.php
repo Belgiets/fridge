@@ -15,13 +15,6 @@ class SuperAdminUser extends BaseUser
     /**
      * @var Collection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User\AdminUser", mappedBy="createdBy")
-     */
-    private $admins;
-
-    /**
-     * @var Collection
-     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Shelf", mappedBy="createdBy")
      */
     private $shelves;
@@ -31,39 +24,7 @@ class SuperAdminUser extends BaseUser
         parent::__construct();
 
         $this->setRole(self::ROLE_SUPERADMIN);
-        $this->admins = new ArrayCollection();
         $this->shelves = new ArrayCollection();
-    }
-
-    /**
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAdmins() {
-        return $this->admins;
-    }
-
-    /**
-     * @param \AppBundle\Entity\User\AdminUser $admin
-     * @return $this
-     */
-    public function addAdmin(AdminUser $admin)
-    {
-        if (!$this->getAdmins()->contains($admin)) {
-            $this->getAdmins()->add($admin);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param \AppBundle\Entity\User\AdminUser $admin
-     * @return $this
-     */
-    public function removeAdmin(AdminUser $admin)
-    {
-        $this->admins->removeElement($admin);
-
-        return $this;
     }
 
     /**

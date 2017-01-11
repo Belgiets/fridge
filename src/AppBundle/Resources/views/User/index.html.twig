@@ -1,0 +1,37 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1 class="page-header">Users</h1>
+    <div class="actions">
+        <a href="{{ path('user_new') }}" class="btn btn-primary">Create</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>#</th>
+                    <th>name</th>
+                    <th>created at</th>
+                    <th>updated at</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>
+                        {#<a class="ico-btn" href="{{ path('shelf_edit', {id: shelf.id}) }}">#}
+                            {#<span class="glyphicon glyphicon-edit glyphicon-align-left" aria-hidden="true"></span>#}
+                        {#</a>#}
+                        {#{{ render(controller('AppBundle:Shelf:delete', {'id': shelf.id})) }}#}
+                    </td>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.createdAt | date('Y-m-d H:i') }}</td>
+                    <td>{{ user.updatedAt | date('Y-m-d H:i') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

@@ -27,9 +27,11 @@ class AdminUser extends BaseUser
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\SuperAdminUser", inversedBy="admins")
+     * @var |DateTime $updatedAt
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
-    private $createdBy;
+    private $updatedAt;
 
     /**
      * @var Collection
@@ -72,12 +74,30 @@ class AdminUser extends BaseUser
     }
 
     /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param mixed $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
      * @param \DateTime $createdAt
      */
     public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
     }
+
+
 
     /**
      * @return \Doctrine\Common\Collections\Collection
@@ -170,20 +190,6 @@ class AdminUser extends BaseUser
         $this->items->removeElement($item);
 
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCreatedBy() {
-        return $this->createdBy;
-    }
-
-    /**
-     * @param mixed $createdBy
-     */
-    public function setCreatedBy($createdBy) {
-        $this->createdBy = $createdBy;
     }
 }
 

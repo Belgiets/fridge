@@ -1,0 +1,11 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1 class="page-header">User create/edit</h1>
+    <div class="actions">
+        <button class="btn btn-primary" onclick="window.history.back()">Back</button>
+    </div>
+    {{ form_start(form, {'attr': {'class': 'user-form'} }) }}
+        {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock content %}
