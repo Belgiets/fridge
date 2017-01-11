@@ -13,8 +13,16 @@
   overflow: hidden;
 }
 
+.page-header {
+  margin: 0 0 20px;
+}
+
 .actions {
   margin: 0 0 15px;
+}
+
+.ico-btn {
+  margin-right: 5px;
 }
 
 .glyphicon {
@@ -24,7 +32,14 @@
 
   &.glyphicon-floppy-remove {
     color: #d9534f;
+    background: none;
   }
+}
+
+button.glyphicon {
+  border: none;
+  padding: 0;
+  outline: 0;
 }
 
 body {

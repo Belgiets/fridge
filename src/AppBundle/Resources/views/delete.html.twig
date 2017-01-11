@@ -1,0 +1,20 @@
+{{ form_start(form, {'attr': {'class': '.ico-btn visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block'}}) }}
+<button type="button" class="glyphicon glyphicon-floppy-remove glyphicon-align-left" aria-hidden="true" data-toggle="modal" data-target="#deleteModal{{ id }}"
+        title="Delete"></button>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal{{ id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog pending-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h4>Are you sure? You want to delete it?</h4>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-consentz-light" data-dismiss="modal">Cancel</button>
+                <button id="approve" class="btn btn-consentz-dark"
+                        type="submit">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}

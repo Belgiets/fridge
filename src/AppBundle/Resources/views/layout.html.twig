@@ -25,12 +25,14 @@
                                 <a href="{{ path('shelves_index') }}">Shelves</a>
                             </li>
                         {% endif %}
-                        <li>
-                            <a href="{{ path('foods_index') }}">Foods</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('categories_index') }}">Categories</a>
-                        </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li>
+                                <a href="{{ path('foods_index') }}">Foods</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('categories_index') }}">Categories</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
                 <div class="sign-in pull-right">

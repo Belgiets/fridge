@@ -4,8 +4,8 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use AppBundle\Entity\User\BaseUser;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
@@ -13,11 +13,14 @@ class DefaultController extends Controller
      * @Route("/", name="homepage")
      * @Template
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-        // replace this example code with whatever you need
-        return [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
-        ];
+        $user = $this->getUser();
+
+        if (($user) && ($user->getRole() === BaseUser::ROLE_ADMIN || $user->getRole() === BaseUser::ROLE_SUPERADMIN)) {
+            return [];
+        }
+
+        return $this->redirectToRoute('login');
     }
 }
