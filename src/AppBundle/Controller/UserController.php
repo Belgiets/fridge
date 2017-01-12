@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\User;
+use AppBundle\Entity\User\AdminUser;
 use AppBundle\Form\AdminUserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -42,11 +42,13 @@ class UserController extends Controller
     public function newAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $adminUser = new User\AdminUser();
+        $adminUser = new AdminUser();
         $adminUser->setUpdatedAt(new \DateTime());
 
         /** @var Form $form */
-        $form = $this->createForm(AdminUserType::class, $adminUser);
+        $form = $this->createForm(AdminUserType::class, $adminUser, [
+            'password_encoder' => $this->get('security.password_encoder')
+        ]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {

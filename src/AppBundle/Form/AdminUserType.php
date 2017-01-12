@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
@@ -32,6 +33,15 @@ class AdminUserType extends AbstractType
                 $form->add('password', RepeatedType::class, [
                     'property_path' => 'plainPassword',
                     'type' => PasswordType::class,
+                    'first_options' => [
+                        'label' => 'new password',
+                    ],
+                    'second_options' => [
+                        'label' => 'repeat new password',
+                        'attr' => [
+                            'class' => 'required-field'
+                        ]
+                    ],
                     'required' => $user->getId() ? false : true
                 ]);
             })
@@ -44,7 +54,7 @@ class AdminUserType extends AbstractType
                 if ($newPassword && $encoder instanceof UserPasswordEncoderInterface) {
                     $user->setPassword($encoder->encodePassword($user, $newPassword));
                 }
-            });
+            })
         ;
     }
 
