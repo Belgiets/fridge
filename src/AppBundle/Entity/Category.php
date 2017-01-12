@@ -44,12 +44,6 @@ class Category
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Food", inversedBy="categories")
-     * @ORM\JoinColumn(name="food_id", referencedColumnName="id")
-     */
-    private $food;
-
-    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser", inversedBy="categories")
      * @ORM\JoinColumn(referencedColumnName="id", onDelete="SET NULL")
      */
@@ -95,20 +89,6 @@ class Category
      */
     public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFood() {
-        return $this->food;
-    }
-
-    /**
-     * @param mixed $food
-     */
-    public function setFood($food) {
-        $this->food = $food;
     }
 
     /**

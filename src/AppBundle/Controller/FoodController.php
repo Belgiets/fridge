@@ -8,11 +8,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/foods")
+ * @Security("has_role('ROLE_ADMIN')")
  */
 class FoodController extends Controller
 {
@@ -40,20 +42,20 @@ class FoodController extends Controller
     public function newAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $category = new Food();
+        $food = new Food();
 
         $user = $this->getUser();
 
-        $category->setCreatedBy($user);
-        $category->setUpdatedBy($user);
-        $category->setUpdatedAt(new \DateTime());
+        $food->setCreatedBy($user);
+        $food->setUpdatedBy($user);
+        $food->setUpdatedAt(new \DateTime());
 
         /** @var Form $form */
-        $form = $this->createForm(FoodType::class, $category, ['user' => $user]);
+        $form = $this->createForm(FoodType::class, $food, ['user' => $user]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em->persist($category);
+            $em->persist($food);
             $em->flush();
 
             return $this->redirectToRoute('foods_index');
@@ -77,7 +79,7 @@ class FoodController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(Food::class, $food, ['user' => $user]);
+        $form = $this->createForm(FoodType::class, $food, ['user' => $user]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -90,5 +92,44 @@ class FoodController extends Controller
         }
 
         return ['form' => $form->createView()];
+    }
+
+    /**
+     * @Route("/{id}/delete", name="food_delete", requirements={"id": "\d+"})
+     * @Method({"GET", "DELETE"})
+     * @Template("AppBundle::delete.html.twig")
+     *
+     * @param Request $request
+     * @param Food $food
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Request $request, Food $food)
+    {
+        /** @var Form $form */
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('shelf_delete', ['id' => $food->getId()]))
+            ->setMethod('DELETE')
+            ->getForm();
+
+        if ($request->getMethod() == Request::METHOD_GET) {
+            return [
+                'form' => $form->createView(),
+                'id' => $food->getId()
+            ];
+        }
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($food);
+            $em->flush();
+
+            $this->addFlash('success', 'Food was deleted');
+        } else {
+            $this->addFlash('danger', 'Food didn\'t deleted');
+        }
+
+        return $this->redirectToRoute('foods_index');
     }
 }

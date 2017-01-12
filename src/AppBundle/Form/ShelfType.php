@@ -28,11 +28,11 @@ class ShelfType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => Shelf::class,
             'csrf_protection' => false,
             'user' => null
-        ));
+        ]);
     }
 
     public function getName()

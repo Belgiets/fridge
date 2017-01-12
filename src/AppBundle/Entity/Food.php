@@ -44,11 +44,6 @@ class Food
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="Category", mappedBy="food")
-     */
-    private $categories;
-
-    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser", inversedBy="foods")
      * @ORM\JoinColumn(referencedColumnName="id", onDelete="SET NULL")
      */
@@ -69,7 +64,6 @@ class Food
      */
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
         $this->items = new ArrayCollection();
     }
 
