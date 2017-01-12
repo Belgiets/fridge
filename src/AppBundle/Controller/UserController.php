@@ -60,4 +60,70 @@ class UserController extends Controller
 
         return ['form' => $form->createView()];
     }
+
+    /**
+     * @Route("/{id}/edit", name="user_edit", requirements={"id": "\d+"})
+     * @Template("AppBundle:User:form.html.twig")
+     *
+     * @param Request $request
+     * @param AdminUser $adminUser
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function editAction(Request $request, AdminUser $adminUser)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(AdminUserType::class, $adminUser, [
+            'password_encoder' => $this->get('security.password_encoder')
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $adminUser->setUpdatedAt(new \DateTime());
+            $em->flush();
+
+            return $this->redirectToRoute('users_index');
+        }
+
+        return ['form' => $form->createView()];
+    }
+
+    /**
+     * @Route("/{id}/delete", name="user_delete", requirements={"id": "\d+"})
+     * @Method({"GET", "DELETE"})
+     * @Template("AppBundle::delete.html.twig")
+     *
+     * @param Request $request
+     * @param AdminUser $adminUser
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Request $request, AdminUser $adminUser)
+    {
+        /** @var Form $form */
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('user_delete', ['id' => $adminUser->getId()]))
+            ->setMethod('DELETE')
+            ->getForm();
+
+        if ($request->getMethod() == Request::METHOD_GET) {
+            return [
+                'form' => $form->createView(),
+                'id' => $adminUser->getId()
+            ];
+        }
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($adminUser);
+            $em->flush();
+
+            $this->addFlash('success', 'User was deleted');
+        } else {
+            $this->addFlash('danger', 'User didn\'t deleted');
+        }
+
+        return $this->redirectToRoute('users_index');
+    }
 }
