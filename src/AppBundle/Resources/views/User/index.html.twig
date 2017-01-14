@@ -5,9 +5,10 @@
     <div class="actions">
         <a href="{{ path('user_new') }}" class="btn btn-primary">Create</a>
     </div>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
+    {% if users %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
                 <tr>
                     <th></th>
                     <th>#</th>
@@ -15,23 +16,26 @@
                     <th>created at</th>
                     <th>updated at</th>
                 </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>
-                        <a class="ico-btn" href="{{ path('user_edit', {id: user.id}) }}">
-                            <span class="glyphicon glyphicon-edit glyphicon-align-left" aria-hidden="true"></span>
-                        </a>
-                        {{ render(controller('AppBundle:User:delete', {'id': user.id})) }}
-                    </td>
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.createdAt | date('Y-m-d H:i') }}</td>
-                    <td>{{ user.updatedAt | date('Y-m-d H:i') }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>
+                            <a class="ico-btn" href="{{ path('user_edit', {id: user.id}) }}">
+                                <span class="glyphicon glyphicon-edit glyphicon-align-left" aria-hidden="true"></span>
+                            </a>
+                            {{ render(controller('AppBundle:User:delete', {'id': user.id})) }}
+                        </td>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.createdAt | date('Y-m-d H:i') }}</td>
+                        <td>{{ user.updatedAt | date('Y-m-d H:i') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        {% include('@App/includes/noitems.html.twig') %}
+    {% endif %}
 {% endblock content %}

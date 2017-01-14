@@ -107,7 +107,7 @@ class FoodController extends Controller
     {
         /** @var Form $form */
         $form = $this->createFormBuilder()
-            ->setAction($this->generateUrl('shelf_delete', ['id' => $food->getId()]))
+            ->setAction($this->generateUrl('food_delete', ['id' => $food->getId()]))
             ->setMethod('DELETE')
             ->getForm();
 
