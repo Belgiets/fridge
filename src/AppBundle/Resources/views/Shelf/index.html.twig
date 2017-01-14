@@ -5,9 +5,10 @@
     <div class="actions">
         <a href="{{ path('shelf_new') }}" class="btn btn-primary">Create</a>
     </div>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
+    {% if shelves %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
                 <tr>
                     <th></th>
                     <th>#</th>
@@ -17,25 +18,28 @@
                     <th>created by</th>
                     <th>updated by</th>
                 </tr>
-            </thead>
-            <tbody>
-            {% for shelf in shelves %}
-                <tr>
-                    <td>
-                        <a class="ico-btn" href="{{ path('shelf_edit', {id: shelf.id}) }}">
-                            <span class="glyphicon glyphicon-edit glyphicon-align-left" aria-hidden="true"></span>
-                        </a>
-                        {{ render(controller('AppBundle:Shelf:delete', {'id': shelf.id})) }}
-                    </td>
-                    <td>{{ shelf.id }}</td>
-                    <td>{{ shelf.name }}</td>
-                    <td>{{ shelf.createdAt | date('Y-m-d H:i') }}</td>
-                    <td>{{ shelf.updatedAt | date('Y-m-d H:i') }}</td>
-                    <td>{{ shelf.createdBy.name }}</td>
-                    <td>{{ shelf.updatedBy.name }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                {% for shelf in shelves %}
+                    <tr>
+                        <td>
+                            <a class="ico-btn" href="{{ path('shelf_edit', {id: shelf.id}) }}">
+                                <span class="glyphicon glyphicon-edit glyphicon-align-left" aria-hidden="true"></span>
+                            </a>
+                            {{ render(controller('AppBundle:Shelf:delete', {'id': shelf.id})) }}
+                        </td>
+                        <td>{{ shelf.id }}</td>
+                        <td>{{ shelf.name }}</td>
+                        <td>{{ shelf.createdAt | date('Y-m-d H:i') }}</td>
+                        <td>{{ shelf.updatedAt | date('Y-m-d H:i') }}</td>
+                        <td>{{ shelf.createdBy.name }}</td>
+                        <td>{{ shelf.updatedBy.name }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        {% include('@App/includes/noitems.html.twig') %}
+    {% endif %}
 {% endblock content %}

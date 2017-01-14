@@ -8,11 +8,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Form;
 
 /**
  * @Route("/categories")
+ * @Security("has_role('ROLE_ADMIN')")
  */
 class CategoryController extends Controller
 {
@@ -90,5 +92,44 @@ class CategoryController extends Controller
         }
 
         return ['form' => $form->createView()];
+    }
+
+    /**
+     * @Route("/{id}/delete", name="category_delete", requirements={"id": "\d+"})
+     * @Method({"GET", "DELETE"})
+     * @Template("AppBundle::delete.html.twig")
+     *
+     * @param Request $request
+     * @param Category $category
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Request $request, Category $category)
+    {
+        /** @var Form $form */
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('category_delete', ['id' => $category->getId()]))
+            ->setMethod('DELETE')
+            ->getForm();
+
+        if ($request->getMethod() == Request::METHOD_GET) {
+            return [
+                'form' => $form->createView(),
+                'id' => $category->getId()
+            ];
+        }
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($category);
+            $em->flush();
+
+            $this->addFlash('success', 'Category was deleted');
+        } else {
+            $this->addFlash('danger', 'Category didn\'t deleted');
+        }
+
+        return $this->redirectToRoute('foods_index');
     }
 }

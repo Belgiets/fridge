@@ -1,11 +1,11 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block content %}
-    <h1 class="page-header">Foods</h1>
+    <h1 class="page-header">Categories</h1>
     <div class="actions">
         <a href="{{ path('food_new') }}" class="btn btn-primary">Create</a>
     </div>
-    {% if foods %}
+    {% if categories %}
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
