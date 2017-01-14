@@ -18,7 +18,7 @@ class DefaultController extends Controller
         $user = $this->getUser();
 
         if (($user) && ($user->getRole() === BaseUser::ROLE_ADMIN || $user->getRole() === BaseUser::ROLE_SUPERADMIN)) {
-            return [];
+            return $this->redirectToRoute('items_index');
         }
 
         return $this->redirectToRoute('login');

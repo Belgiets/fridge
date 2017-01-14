@@ -46,7 +46,7 @@ class Item
     private $weight;
 
     /**
-     * @var binary
+     * @var string
      *
      * @ORM\Column(name="qr", type="binary")
      */
