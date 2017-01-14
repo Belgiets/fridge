@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -13,6 +14,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Food
 {
+    use ORMBehaviors\Blameable\Blameable;
+
     /**
      * @var int
      *
@@ -44,17 +47,6 @@ class Food
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser", inversedBy="foods")
-     * @ORM\JoinColumn(referencedColumnName="id", onDelete="SET NULL")
-     */
-    private $createdBy;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser")
-     */
-    private $updatedBy;
-
-    /**
      * @ORM\OneToMany(targetEntity="Item", mappedBy="food")
      */
     private $items;
@@ -65,6 +57,8 @@ class Food
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     /**

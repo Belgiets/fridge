@@ -16,11 +16,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({
+ *     "baseUser" = "BaseUser",
  *     "superAdmin" = "SuperAdminUser",
- *     "admin" = "AdminUser",
+ *     "adminUser" = "AdminUser",
  * })
  */
-abstract class BaseUser implements UserInterface, AdvancedUserInterface, \Serializable
+class BaseUser implements UserInterface, AdvancedUserInterface, \Serializable
 {
     const ROLE_SUPERADMIN = 'ROLE_SUPERADMIN';
     const ROLE_ADMIN = 'ROLE_ADMIN';

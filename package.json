@@ -12,7 +12,7 @@
     "gulp": "*",
     "gulp-clean": "^0.3.1",
     "gulp-sass": "*",
-    "gulp-minify-css": "*",
+    "gulp-clean-css": "*",
     "gulp-concat": "*",
     "gulp-uglify": "*",
     "gulp-watch": "*",

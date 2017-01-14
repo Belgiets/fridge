@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * Item
@@ -12,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Item
 {
+    use ORMBehaviors\Blameable\Blameable;
+
     /**
      * @var int
      *
@@ -62,17 +65,6 @@ class Item
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser", inversedBy="items")
-     * @ORM\JoinColumn(referencedColumnName="id", onDelete="SET NULL")
-     */
-    private $createdBy;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser")
-     */
-    private $updatedBy;
 
     /**
      * @ORM\ManyToOne(targetEntity="Food", inversedBy="items")

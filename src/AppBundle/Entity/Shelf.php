@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -14,6 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Shelf
 {
+    use ORMBehaviors\Blameable\Blameable;
+
     /**
      * @var int
      *
@@ -44,17 +47,6 @@ class Shelf
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\SuperAdminUser", inversedBy="shelves")
-     * @ORM\JoinColumn(referencedColumnName="id", onDelete="SET NULL")
-     */
-    private $createdBy;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\SuperAdminUser")
-     */
-    private $updatedBy;
 
     /**
      * @ORM\OneToMany(targetEntity="Item", mappedBy="shelf")

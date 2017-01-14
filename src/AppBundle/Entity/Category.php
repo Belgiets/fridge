@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * Category
@@ -13,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+    use ORMBehaviors\Blameable\Blameable;
+
     /**
      * @var int
      *
@@ -42,17 +45,6 @@ class Category
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser", inversedBy="categories")
-     * @ORM\JoinColumn(referencedColumnName="id", onDelete="SET NULL")
-     */
-    private $createdBy;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\AdminUser")
-     */
-    private $updatedBy;
 
     /**
      * @ORM\OneToMany(targetEntity="Item", mappedBy="category")

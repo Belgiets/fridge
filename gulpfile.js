@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-  minify = require('gulp-minify-css'),
+  minify = require('gulp-clean-css'),
   uglify = require('gulp-uglify'),
   concat = require('gulp-concat'),
   watch = require('gulp-watch'),
