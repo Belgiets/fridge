@@ -79,7 +79,7 @@ class ItemController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(Item::class, $item, ['user' => $user]);
+        $form = $this->createForm(ItemType::class, $item, ['user' => $user]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -92,5 +92,44 @@ class ItemController extends Controller
         }
 
         return ['form' => $form->createView()];
+    }
+
+    /**
+     * @Route("/{id}/delete", name="item_delete", requirements={"id": "\d+"})
+     * @Method({"GET", "DELETE"})
+     * @Template("AppBundle::delete.html.twig")
+     *
+     * @param Request $request
+     * @param Item $item
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Request $request, Item $item)
+    {
+        /** @var Form $form */
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('item_delete', ['id' => $item->getId()]))
+            ->setMethod('DELETE')
+            ->getForm();
+
+        if ($request->getMethod() == Request::METHOD_GET) {
+            return [
+                'form' => $form->createView(),
+                'id' => $item->getId()
+            ];
+        }
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($item);
+            $em->flush();
+
+            $this->addFlash('success', 'Item was deleted');
+        } else {
+            $this->addFlash('danger', 'Item didn\'t deleted');
+        }
+
+        return $this->redirectToRoute('items_index');
     }
 }

@@ -34,21 +34,21 @@ class Item
     /**
      * @var int
      *
-     * @ORM\Column(name="qty", type="integer")
+     * @ORM\Column(name="qty", type="integer", nullable=false)
      */
     private $qty;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="weight", type="float")
+     * @ORM\Column(name="weight", type="float", nullable=true)
      */
     private $weight;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="qr", type="binary")
+     * @ORM\Column(name="qr", type="binary", nullable=true)
      */
     private $qr;
 
@@ -80,9 +80,18 @@ class Item
 
     /**
      * @ORM\ManyToOne(targetEntity="Shelf", inversedBy="items")
-     * @ORM\JoinColumn(name="Shelf_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="shelf_id", referencedColumnName="id")
      */
     private $shelf;
+
+    /**
+     * Item constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
 
     /**
      * @return mixed
@@ -211,7 +220,7 @@ class Item
     /**
      * Set qr
      *
-     * @param binary $qr
+     * @param string $qr
      *
      * @return Item
      */
@@ -225,7 +234,7 @@ class Item
     /**
      * Get qr
      *
-     * @return binary
+     * @return string
      */
     public function getQr()
     {

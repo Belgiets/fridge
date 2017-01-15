@@ -130,6 +130,6 @@ class CategoryController extends Controller
             $this->addFlash('danger', 'Category didn\'t deleted');
         }
 
-        return $this->redirectToRoute('foods_index');
+        return $this->redirectToRoute('categories_index');
     }
 }

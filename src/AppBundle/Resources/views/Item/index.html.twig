@@ -5,5 +5,51 @@
     <div class="actions">
         <a href="{{ path('item_new') }}" class="btn btn-primary">Create</a>
     </div>
-
+    {% if items %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>#</th>
+                    <th>description</th>
+                    <th>food</th>
+                    <th>category</th>
+                    <th>qty</th>
+                    <th>weight</th>
+                    <th>shelf</th>
+                    <th>created at</th>
+                    <th>updated at</th>
+                    <th>created by</th>
+                    <th>updated by</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>
+                            <a class="ico-btn" href="{{ path('item_edit', {id: item.id}) }}">
+                                <span class="glyphicon glyphicon-edit glyphicon-align-left" aria-hidden="true"></span>
+                            </a>
+                            {{ render(controller('AppBundle:Item:delete', {'id': item.id})) }}
+                        </td>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.description }}</td>
+                        <td>{{ item.food.name }}</td>
+                        <td>{{ item.category.name }}</td>
+                        <td>{{ item.qty }}</td>
+                        <td>{{ item.weight }}</td>
+                        <td>{{ item.shelf.name }}</td>
+                        <td>{{ item.createdAt | date('Y-m-d H:i') }}</td>
+                        <td>{{ item.updatedAt | date('Y-m-d H:i') }}</td>
+                        <td>{{ item.createdBy.name }}</td>
+                        <td>{{ item.updatedBy.name }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        {% include('@App/includes/noitems.html.twig') %}
+    {% endif %}
 {% endblock content %}

@@ -3,7 +3,7 @@
 {% block content %}
     <h1 class="page-header">Categories</h1>
     <div class="actions">
-        <a href="{{ path('food_new') }}" class="btn btn-primary">Create</a>
+        <a href="{{ path('category_new') }}" class="btn btn-primary">Create</a>
     </div>
     {% if categories %}
         <div class="table-responsive">
@@ -20,20 +20,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for food in foods %}
+                {% for category in categories %}
                     <tr>
                         <td>
-                            <a class="ico-btn" href="{{ path('food_edit', {id: food.id}) }}">
+                            <a class="ico-btn" href="{{ path('category_edit', {id: category.id}) }}">
                                 <span class="glyphicon glyphicon-edit glyphicon-align-left" aria-hidden="true"></span>
                             </a>
-                            {{ render(controller('AppBundle:Food:delete', {'id': food.id})) }}
+                            {{ render(controller('AppBundle:Category:delete', {'id': category.id})) }}
                         </td>
-                        <td>{{ food.id }}</td>
-                        <td>{{ food.name }}</td>
-                        <td>{{ food.createdAt | date('Y-m-d H:i') }}</td>
-                        <td>{{ food.updatedAt | date('Y-m-d H:i') }}</td>
-                        <td>{{ food.createdBy.name }}</td>
-                        <td>{{ food.updatedBy.name }}</td>
+                        <td>{{ category.id }}</td>
+                        <td>{{ category.name }}</td>
+                        <td>{{ category.createdAt | date('Y-m-d H:i') }}</td>
+                        <td>{{ category.updatedAt | date('Y-m-d H:i') }}</td>
+                        <td>{{ category.createdBy.name }}</td>
+                        <td>{{ category.updatedBy.name }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
