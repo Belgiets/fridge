@@ -61,7 +61,10 @@ class CategoryController extends Controller
             return $this->redirectToRoute('categories_index');
         }
 
-        return ['form' => $form->createView()];
+        return [
+            'form' => $form->createView(),
+            'onlyForm' => $request->query->get('onlyForm') ? : false
+        ];
     }
 
     /**

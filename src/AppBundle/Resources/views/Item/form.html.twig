@@ -1,7 +1,10 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block content %}
-    {{ form_start(form, {'attr': {'class': 'category-form'} }) }}
+    <div class="">
+        {{ render(controller('AppBundle:Category:new', {}, {'onlyForm': true})) }}
+    </div>
+    {{ form_start(form, {'attr': {'class': 'item-form'} }) }}
         {{ form_widget(form) }}
     {{ form_end(form) }}
 {% endblock content %}
