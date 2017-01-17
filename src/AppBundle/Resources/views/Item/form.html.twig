@@ -1,10 +1,10 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block content %}
-    <div class="">
-        {{ render(controller('AppBundle:Category:new', {}, {'onlyForm': true})) }}
+    <div class="additional-forms">
+        {% include '@App/includes/defaultForm.html.twig' with {'form': formCategory, 'formHeader': 'Category create/edit', 'formClass': 'category-form' } %}
     </div>
-    {{ form_start(form, {'attr': {'class': 'item-form'} }) }}
-        {{ form_widget(form) }}
-    {{ form_end(form) }}
+    {{ form_start(formItem, {'attr': {'class': 'item-form'} }) }}
+        {{ form_widget(formItem) }}
+    {{ form_end(formItem) }}
 {% endblock content %}

@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Item;
+use AppBundle\Form\CategoryType;
 use AppBundle\Form\ItemType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -42,26 +44,39 @@ class ItemController extends Controller
     public function newAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $item = new Item();
-
         $user = $this->getUser();
 
+        $category = new Category();
+        $category->setCreatedBy($user);
+        $category->setUpdatedBy($user);
+        $category->setUpdatedAt(new \DateTime());
+
+        /** @var Form $form */
+        $formCategory = $this->createForm(CategoryType::class, $category, [
+            'user' => $user,
+            'action' => $this->generateUrl('category_new'),
+        ]);
+
+        $item = new Item();
         $item->setCreatedBy($user);
         $item->setUpdatedBy($user);
         $item->setUpdatedAt(new \DateTime());
 
-        /** @var Form $form */
-        $form = $this->createForm(ItemType::class, $item, ['user' => $user]);
-        $form->handleRequest($request);
+        /** @var Form $formItem */
+        $formItem = $this->createForm(ItemType::class, $item, ['user' => $user]);
+        $formItem->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($formItem->isValid()) {
             $em->persist($item);
             $em->flush();
 
             return $this->redirectToRoute('items_index');
         }
 
-        return ['form' => $form->createView()];
+        return [
+            'formCategory' => $formCategory->createView(),
+            'formItem' => $formItem->createView()
+        ];
     }
 
     /**

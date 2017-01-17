@@ -62,8 +62,7 @@ class CategoryController extends Controller
         }
 
         return [
-            'form' => $form->createView(),
-            'onlyForm' => $request->query->get('onlyForm') ? : false
+            'form' => $form->createView()
         ];
     }
 
