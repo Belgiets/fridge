@@ -1,10 +1,48 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block content %}
-    <div class="additional-forms">
-        {% include '@App/includes/defaultForm.html.twig' with {'form': formCategory, 'formHeader': 'Category create/edit', 'formClass': 'category-form' } %}
+    <div class="container">
+        <h1 class="page-header">Item create/edit</h1>
+        <div class="actions">
+            <button class="btn btn-primary" onclick="window.history.back()">Back</button>
+        </div>
+        <div class="add-forms-wr">
+            <div class="add-form add-food-form">
+                <h2>Add a new Food</h2>
+                {% include '@App/includes/defaultForm.html.twig'
+                with {'form': formCategory, 'formHeader': '', 'formClass': 'category-form' } %}
+            </div>
+            <div class="add-form add-category-form">
+                <h2>Add a new category</h2>
+                {% include '@App/includes/defaultForm.html.twig'
+                with {'form': formFood, 'formHeader': '', 'formClass': 'food-form' } %}
+            </div>
+        </div>
+        {{ form_start(formItem, {'attr': {'class': 'item-form'} }) }}
+        {{ form_row(formItem.description) }}
+        {{ form_row(formItem.food) }}
+        <div class="form-group">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <a href="#" class="btn btn-primary btn-add-new" data-form="add-form-food">Add new food</a>
+            </div>
+        </div>
+        {{ form_row(formItem.category) }}
+        <div class="form-group">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <a href="#" class="btn btn-primary btn-add-new" data-form="add-form-category">Add new category</a>
+            </div>
+        </div>
+        {{ form_row(formItem.shelf) }}
+        {{ form_row(formItem.qty) }}
+        {{ form_row(formItem.weight) }}
+        <div class="form-group">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <button type="submit" id="food_save" name="food[save]" class="btn btn-success btn">Save</button>
+            </div>
+        </div>
+        {{ form_end(formItem, {'render_rest': false}) }}
     </div>
-    {{ form_start(formItem, {'attr': {'class': 'item-form'} }) }}
-        {{ form_widget(formItem) }}
-    {{ form_end(formItem) }}
 {% endblock content %}

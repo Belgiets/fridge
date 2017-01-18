@@ -27,3 +27,6 @@ button.glyphicon {
   border: none;
   padding: 0;
   outline: 0; }
+
+.add-form {
+  display: none; }

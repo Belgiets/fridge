@@ -3,8 +3,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Food;
 use AppBundle\Entity\Item;
 use AppBundle\Form\CategoryType;
+use AppBundle\Form\FoodType;
 use AppBundle\Form\ItemType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -46,12 +48,23 @@ class ItemController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
+        $food = new Food();
+        $food->setCreatedBy($user);
+        $food->setUpdatedBy($user);
+        $food->setUpdatedAt(new \DateTime());
+
+        /** @var Form $formFood */
+        $formFood = $this->createForm(FoodType::class, $food, [
+            'user' => $user,
+            'action' => $this->generateUrl('food_new'),
+        ]);
+
         $category = new Category();
         $category->setCreatedBy($user);
         $category->setUpdatedBy($user);
         $category->setUpdatedAt(new \DateTime());
 
-        /** @var Form $form */
+        /** @var Form $formCategory */
         $formCategory = $this->createForm(CategoryType::class, $category, [
             'user' => $user,
             'action' => $this->generateUrl('category_new'),
@@ -74,8 +87,9 @@ class ItemController extends Controller
         }
 
         return [
+            'formFood'     => $formFood->createView(),
             'formCategory' => $formCategory->createView(),
-            'formItem' => $formItem->createView()
+            'formItem'     => $formItem->createView()
         ];
     }
 
@@ -94,10 +108,33 @@ class ItemController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(ItemType::class, $item, ['user' => $user]);
-        $form->handleRequest($request);
+        $food = new Food();
+        $food->setCreatedBy($user);
+        $food->setUpdatedBy($user);
+        $food->setUpdatedAt(new \DateTime());
 
-        if ($form->isValid()) {
+        /** @var Form $formFood */
+        $formFood = $this->createForm(FoodType::class, $food, [
+            'user' => $user,
+            'action' => $this->generateUrl('food_new'),
+        ]);
+
+        $category = new Category();
+        $category->setCreatedBy($user);
+        $category->setUpdatedBy($user);
+        $category->setUpdatedAt(new \DateTime());
+
+        /** @var Form $formCategory */
+        $formCategory = $this->createForm(CategoryType::class, $category, [
+            'user' => $user,
+            'action' => $this->generateUrl('category_new'),
+        ]);
+
+        /** @var Form $formItem */
+        $formItem = $this->createForm(ItemType::class, $item, ['user' => $user]);
+        $formItem->handleRequest($request);
+
+        if ($formItem->isValid()) {
             $item->setUpdatedAt(new \DateTime());
             $item->setUpdatedBy($user);
 
@@ -106,7 +143,11 @@ class ItemController extends Controller
             return $this->redirectToRoute('items_index');
         }
 
-        return ['form' => $form->createView()];
+        return [
+            'formFood'     => $formFood->createView(),
+            'formCategory' => $formCategory->createView(),
+            'formItem'     => $formItem->createView()
+        ];
     }
 
     /**
