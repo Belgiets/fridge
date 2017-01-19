@@ -10,12 +10,12 @@
             <div class="add-form add-food-form">
                 <h2>Add a new Food</h2>
                 {% include '@App/includes/defaultForm.html.twig'
-                with {'form': formCategory, 'formHeader': '', 'formClass': 'category-form' } %}
+                with {'form': formFood, 'formHeader': '', 'formClass': 'category-form' } %}
             </div>
             <div class="add-form add-category-form">
                 <h2>Add a new category</h2>
                 {% include '@App/includes/defaultForm.html.twig'
-                with {'form': formFood, 'formHeader': '', 'formClass': 'food-form' } %}
+                with {'form': formCategory, 'formHeader': '', 'formClass': 'food-form' } %}
             </div>
         </div>
         {{ form_start(formItem, {'attr': {'class': 'item-form'} }) }}

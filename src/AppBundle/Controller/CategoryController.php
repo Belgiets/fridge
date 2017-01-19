@@ -59,6 +59,8 @@ class CategoryController extends Controller
             $em->flush();
 
             return $this->redirectToRoute('categories_index');
+        } else {
+            $errors = $form->getErrors(true)->__toString();
         }
 
         return [
