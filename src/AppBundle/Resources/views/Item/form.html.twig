@@ -7,30 +7,27 @@
             <button class="btn btn-primary" onclick="window.history.back()">Back</button>
         </div>
         <div class="add-forms-wr">
-            <div class="add-form add-food-form">
-                <h2>Add a new Food</h2>
-                {% include '@App/includes/defaultForm.html.twig'
-                with {'form': formFood, 'formHeader': '', 'formClass': 'category-form' } %}
-            </div>
-            <div class="add-form add-category-form">
-                <h2>Add a new category</h2>
-                {% include '@App/includes/defaultForm.html.twig'
-                with {'form': formCategory, 'formHeader': '', 'formClass': 'food-form' } %}
-            </div>
+            {% include '@App/includes/defaultForm.html.twig'
+            with {'form': formFood, 'formHeader': '', 'formClass': 'add-ajax-form add-form-food' } %}
+
+            {% include '@App/includes/defaultForm.html.twig'
+            with {'form': formCategory, 'formHeader': '', 'formClass': 'add-ajax-form add-form-category' } %}
         </div>
         {{ form_start(formItem, {'attr': {'class': 'item-form'} }) }}
         {{ form_row(formItem.description) }}
         {{ form_row(formItem.food) }}
-        <div class="form-group">
+        <div class="form-group add-form-group add-form-food">
             <div class="col-sm-2"></div>
             <div class="col-sm-10">
+                <input type="text" class="add-form add-form-food form-control" />
                 <a href="#" class="btn btn-primary btn-add-new" data-form="add-form-food">Add new food</a>
             </div>
         </div>
-        {{ form_row(formItem.category) }}
-        <div class="form-group">
+        {{ form_row(formItem.category, {'attr': {'class': 'add-form-category'}}) }}
+        <div class="form-group add-form-group add-form-categor">
             <div class="col-sm-2"></div>
             <div class="col-sm-10">
+                <input type="text" class="add-form add-form-category form-control" />
                 <a href="#" class="btn btn-primary btn-add-new" data-form="add-form-category">Add new category</a>
             </div>
         </div>

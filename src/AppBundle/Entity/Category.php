@@ -181,5 +181,13 @@ class Category
     {
         $this->updatedBy = $updatedBy;
     }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName()
+        ];
+    }
 }
 

@@ -46,8 +46,15 @@ button.glyphicon {
   outline: 0;
 }
 
+.form-control {
+  &.add-form {
+    max-width: 300px;
+    display: inline-block;
+  }
+}
+
 .add-form {
-  //display: none;
+
 }
 
 body {

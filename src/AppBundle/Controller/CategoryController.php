@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Form;
 
@@ -37,7 +38,7 @@ class CategoryController extends Controller
      * @Template("AppBundle:Category:form.html.twig")
      *
      * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function newAction(Request $request)
     {
@@ -58,9 +59,27 @@ class CategoryController extends Controller
             $em->persist($category);
             $em->flush();
 
+            if ($request->isXmlHttpRequest()) {
+                $categories = $this->getDoctrine()->getManager()->getRepository('AppBundle:Category')->findAll();
+
+                $categories = array_map(function($value){
+                    return $value->jsonSerialize();
+                }, $categories);
+
+                return new JsonResponse([
+                    'status' => 'ok',
+                    'data' => $categories
+                ]);
+            }
+
             return $this->redirectToRoute('categories_index');
         } else {
-            $errors = $form->getErrors(true)->__toString();
+            if ($request->isXmlHttpRequest()) {
+                return new JsonResponse([
+                    'status' => 'error',
+                    'data' => $form->getErrors(true)->__toString()
+                ]);
+            }
         }
 
         return [

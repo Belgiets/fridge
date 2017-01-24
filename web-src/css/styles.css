@@ -27,3 +27,7 @@ button.glyphicon {
   border: none;
   padding: 0;
   outline: 0; }
+
+.form-control.add-form {
+  max-width: 300px;
+  display: inline-block; }
