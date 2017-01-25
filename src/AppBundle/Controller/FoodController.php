@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -37,7 +38,7 @@ class FoodController extends Controller
      * @Template("AppBundle:Food:form.html.twig")
      *
      * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function newAction(Request $request)
     {
@@ -58,7 +59,27 @@ class FoodController extends Controller
             $em->persist($food);
             $em->flush();
 
+            if ($request->isXmlHttpRequest()) {
+                $foods = $this->getDoctrine()->getManager()->getRepository('AppBundle:Food')->findAll();
+
+                $foods = array_map(function($value){
+                    return $value->jsonSerialize();
+                }, $foods);
+
+                return new JsonResponse([
+                    'status' => 'ok',
+                    'data' => $foods
+                ]);
+            }
+
             return $this->redirectToRoute('foods_index');
+        } else {
+            if ($request->isXmlHttpRequest()) {
+                return new JsonResponse([
+                    'status' => 'error',
+                    'data' => $form->getErrors(true)->__toString()
+                ]);
+            }
         }
 
         return ['form' => $form->createView()];

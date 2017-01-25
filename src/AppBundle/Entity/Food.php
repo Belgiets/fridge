@@ -214,5 +214,16 @@ class Food
     {
         $this->updatedBy = $updatedBy;
     }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName()
+        ];
+    }
 }
 

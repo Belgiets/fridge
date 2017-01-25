@@ -182,6 +182,9 @@ class Category
         $this->updatedBy = $updatedBy;
     }
 
+    /**
+     * @return array
+     */
     public function jsonSerialize()
     {
         return [
