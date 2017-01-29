@@ -39,6 +39,13 @@ class BaseUser implements UserInterface, AdvancedUserInterface, \Serializable
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Category name must be at least {{ limit }} characters long",
+     *      maxMessage = "Category name cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
@@ -46,6 +53,10 @@ class BaseUser implements UserInterface, AdvancedUserInterface, \Serializable
     /**
      * @var string
      *
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
      * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
     private $email;
@@ -77,11 +88,6 @@ class BaseUser implements UserInterface, AdvancedUserInterface, \Serializable
      * @ORM\Column(name="locked", type="boolean", options={"default"=0})
      */
     private $locked = 0;
-
-    public function __construct()
-    {
-
-    }
 
     /**
      * Get id

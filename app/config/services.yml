@@ -15,3 +15,6 @@ services:
             - "@validator"
         tags:
             - { name: console.command }
+
+    form_errors:
+        class: AppBundle\Services\GetFormErrors

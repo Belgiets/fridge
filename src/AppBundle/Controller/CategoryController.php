@@ -35,7 +35,7 @@ class CategoryController extends Controller
 
     /**
      * @Route("/new", name="category_new")`
-     * @Template("AppBundle:Category:form.html.twig")
+     * @Template("AppBundle::defaultForm.html.twig")
      *
      * @param Request $request
      * @return array|JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -74,23 +74,28 @@ class CategoryController extends Controller
 
             return $this->redirectToRoute('categories_index');
         } else {
+            $formErrors = $this->get('form_errors');
+            $errors = $formErrors->getAllErrors($form);
+
             if ($request->isXmlHttpRequest()) {
                 return new JsonResponse([
                     'status' => 'error',
-                    'data' => $form->getErrors(true)->__toString()
+                    'data' => $errors
                 ]);
             }
         }
 
         return [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'formHeader' => 'Category create/edit',
+            'formClass' => 'category-form'
         ];
     }
 
     /**
      * @Route("/edit/{id}", name="category_edit", requirements={"id": "\d+"})
      *
-     * @Template("AppBundle:Category:form.html.twig")
+     * @Template("AppBundle::defaultForm.html.twig")
      *
      * @param Request $request
      * @param Category $category
@@ -114,7 +119,11 @@ class CategoryController extends Controller
             return $this->redirectToRoute('categories_index');
         }
 
-        return ['form' => $form->createView()];
+        return [
+            'form' => $form->createView(),
+            'formHeader' => 'Category create/edit',
+            'formClass' => 'category-form'
+        ];
     }
 
     /**

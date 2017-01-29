@@ -35,7 +35,7 @@ class FoodController extends Controller
 
     /**
      * @Route("/new", name="food_new")`
-     * @Template("AppBundle:Food:form.html.twig")
+     * @Template("AppBundle::defaultForm.html.twig")
      *
      * @param Request $request
      * @return array|JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -82,7 +82,11 @@ class FoodController extends Controller
             }
         }
 
-        return ['form' => $form->createView()];
+        return [
+            'form' => $form->createView(),
+            'formHeader' => 'Food create/edit',
+            'formClass' => 'food-form'
+        ];
     }
 
     /**
@@ -112,7 +116,11 @@ class FoodController extends Controller
             return $this->redirectToRoute('foods_index');
         }
 
-        return ['form' => $form->createView()];
+        return [
+            'form' => $form->createView(),
+            'formHeader' => 'Food create/edit',
+            'formClass' => 'food-form'
+        ];
     }
 
     /**

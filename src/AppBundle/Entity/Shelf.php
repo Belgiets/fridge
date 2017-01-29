@@ -30,6 +30,12 @@ class Shelf
      * @var string
      *
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Shelf name must be at least {{ limit }} characters long",
+     *      maxMessage = "Shelf name cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;

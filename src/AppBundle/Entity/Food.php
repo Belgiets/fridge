@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Food
@@ -28,6 +29,13 @@ class Food
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Food name must be at least {{ limit }} characters long",
+     *      maxMessage = "Food name cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;

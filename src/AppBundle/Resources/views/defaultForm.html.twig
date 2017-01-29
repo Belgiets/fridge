@@ -1,0 +1,15 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        {%  if formHeader %}
+            <h1 class="page-header">{{ formHeader }}</h1>
+            <div class="actions">
+                <button class="btn btn-primary" onclick="window.history.back()">Back</button>
+            </div>
+        {% endif %}
+        {{ form_start(form, {'attr': {'class': formClass} }) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock content %}

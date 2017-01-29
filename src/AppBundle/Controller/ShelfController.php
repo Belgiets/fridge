@@ -34,7 +34,7 @@ class ShelfController extends Controller
 
     /**
      * @Route("/new", name="shelf_new")
-     * @Template("AppBundle:Shelf:form.html.twig")
+     * @Template("AppBundle::defaultForm.html.twig")
      *
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -61,12 +61,16 @@ class ShelfController extends Controller
             return $this->redirectToRoute('shelves_index');
         }
 
-        return ['form' => $form->createView()];
+        return [
+            'form' => $form->createView(),
+            'formHeader' => 'Shelf create/edit',
+            'formClass' => 'shelf-form'
+        ];
     }
 
     /**
      * @Route("/{id}/edit", name="shelf_edit", requirements={"id": "\d+"})
-     * @Template("AppBundle:Shelf:form.html.twig")
+     * @Template("AppBundle::defaultForm.html.twig")
      *
      * @param Request $request
      * @param Shelf $shelf
@@ -90,7 +94,11 @@ class ShelfController extends Controller
             return $this->redirectToRoute('shelves_index');
         }
 
-        return ['form' => $form->createView()];
+        return [
+            'form' => $form->createView(),
+            'formHeader' => 'Shelf create/edit',
+            'formClass' => 'shelf-form'
+        ];
     }
 
     /**

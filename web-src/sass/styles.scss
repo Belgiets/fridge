@@ -13,6 +13,24 @@
   margin-bottom: 0;
 }
 
+.navbar-right {
+  @include breakpoint($b-md) {
+    margin-right: 0;
+  }
+}
+
+.navbar-toggle {
+  border-color: #ec4c4c;
+
+  .icon-bar {
+    background-color: black;
+  }
+}
+
+.pull-right.sign-in {
+  margin-right: 15px;
+}
+
 .content-wr {
   margin-top: ($hdr-height + 20);
 }

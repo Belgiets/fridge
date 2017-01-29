@@ -56,8 +56,6 @@ class AdminUser extends BaseUser
 
     public function __construct()
     {
-        parent::__construct();
-
         $this->setRole(self::ROLE_ADMIN);
         $this->setCreatedAt(new \DateTime());
         $this->categories = new ArrayCollection();

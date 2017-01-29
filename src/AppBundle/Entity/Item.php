@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Item
@@ -27,6 +29,13 @@ class Item
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 300,
+     *      minMessage = "Description name must be at least {{ limit }} characters long",
+     *      maxMessage = "Description name cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
@@ -34,7 +43,7 @@ class Item
     /**
      * @var int
      *
-     * @ORM\Column(name="qty", type="integer", nullable=false)
+     * @ORM\Column(name="qty", type="integer", nullable=true)
      */
     private $qty;
 
@@ -68,19 +77,19 @@ class Item
 
     /**
      * @ORM\ManyToOne(targetEntity="Food", inversedBy="items")
-     * @ORM\JoinColumn(name="food_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="food_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $food;
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="items")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $category;
 
     /**
      * @ORM\ManyToOne(targetEntity="Shelf", inversedBy="items")
-     * @ORM\JoinColumn(name="shelf_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="shelf_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $shelf;
 
@@ -297,6 +306,19 @@ class Item
     public function setUpdatedBy($updatedBy)
     {
         $this->updatedBy = $updatedBy;
+    }
+
+    /**
+     * @Assert\Callback
+     * @param ExecutionContextInterface $context
+     * @param $payload
+     */
+    public function qtyOrWeightValidate(ExecutionContextInterface $context, $payload) {
+        if (empty($this->getQty()) && empty($this->getWeight())) {
+            $context->buildViolation('You must set at least qty or weight')
+                ->atPath('weight')
+                ->addViolation();
+        }
     }
 }
 

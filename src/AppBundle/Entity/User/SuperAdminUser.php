@@ -21,8 +21,6 @@ class SuperAdminUser extends BaseUser
 
     public function __construct()
     {
-        parent::__construct();
-
         $this->setRole(self::ROLE_SUPERADMIN);
         $this->shelves = new ArrayCollection();
     }

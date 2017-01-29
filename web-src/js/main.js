@@ -31,7 +31,12 @@ $(function () {
 
     /* additional forms ajax submit */
     function ajaxSubmit(dataForm, ajaxParams) {
-      var targetSelect = $('select.' + dataForm);
+      var targetSelect = $('select.' + dataForm),
+        formGroups = $('.add-form-group');
+
+      //remove previous errors
+      formGroups.removeClass('has-error');
+      $('.help-block', formGroups).remove();
 
       $.ajax({
         type: ajaxParams.type,
@@ -49,9 +54,18 @@ $(function () {
               targetSelect.append(option);
             });
           } else if ('error' === result.status) {
+            var targetFormGroup = formGroups.filter('.' + dataForm),
+              errorsHtml = '';
 
+            targetFormGroup.addClass('has-error');
+
+            $.each(result.data, function(index, item) {
+              errorsHtml += '<li><span class="glyphicon glyphicon-exclamation-sign"></span>' + item + '</li>';
+            });
+
+            $('input.' + dataForm).next().after('<span class="help-block"><ul class="list-unstyled">' + errorsHtml +
+              '</ul></span>');
           }
-          console.log(result);
         }
       });
     }

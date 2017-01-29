@@ -34,7 +34,7 @@ class UserController extends Controller
 
     /**
      * @Route("/new", name="user_new")
-     * @Template("AppBundle:User:form.html.twig")
+     * @Template("AppBundle::defaultForm.html.twig")
      *
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -58,12 +58,16 @@ class UserController extends Controller
             return $this->redirectToRoute('users_index');
         }
 
-        return ['form' => $form->createView()];
+        return [
+            'form' => $form->createView(),
+            'formHeader' => 'User create/edit',
+            'formClass' => 'user-form'
+        ];
     }
 
     /**
      * @Route("/{id}/edit", name="user_edit", requirements={"id": "\d+"})
-     * @Template("AppBundle:User:form.html.twig")
+     * @Template("AppBundle::defaultForm.html.twig")
      *
      * @param Request $request
      * @param AdminUser $adminUser
@@ -85,7 +89,11 @@ class UserController extends Controller
             return $this->redirectToRoute('users_index');
         }
 
-        return ['form' => $form->createView()];
+        return [
+            'form' => $form->createView(),
+            'formHeader' => 'User create/edit',
+            'formClass' => 'user-form'
+        ];
     }
 
     /**

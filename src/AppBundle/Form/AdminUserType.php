@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\User\AdminUser;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,10 +35,10 @@ class AdminUserType extends AbstractType
                     'property_path' => 'plainPassword',
                     'type' => PasswordType::class,
                     'first_options' => [
-                        'label' => 'new password',
+                        'label' => 'New password',
                     ],
                     'second_options' => [
-                        'label' => 'repeat new password',
+                        'label' => 'Repeat new password',
                         'attr' => [
                             'class' => 'required-field'
                         ]
