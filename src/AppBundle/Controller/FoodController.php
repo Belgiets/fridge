@@ -75,10 +75,15 @@ class FoodController extends Controller
             return $this->redirectToRoute('foods_index');
         } else {
             if ($request->isXmlHttpRequest()) {
-                return new JsonResponse([
-                    'status' => 'error',
-                    'data' => $form->getErrors(true)->__toString()
-                ]);
+                $formErrors = $this->get('form_errors');
+                $errors = $formErrors->getAllErrors($form);
+
+                if ($request->isXmlHttpRequest()) {
+                    return new JsonResponse([
+                        'status' => 'error',
+                        'data' => $errors
+                    ]);
+                }
             }
         }
 
@@ -91,8 +96,7 @@ class FoodController extends Controller
 
     /**
      * @Route("/edit/{id}", name="food_edit", requirements={"id": "\d+"})
-     *
-     * @Template("AppBundle:Food:form.html.twig")
+     * @Template("AppBundle::defaultForm.html.twig")
      *
      * @param Request $request
      * @param Food $food

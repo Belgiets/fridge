@@ -17,12 +17,6 @@ class CategoryType extends AbstractType
             ->add('name', TextType::class, [
                 'required' => true
             ])
-            ->add('save', SubmitType::class, [
-                'label' => 'Save',
-                'attr' => [
-                    'class' => 'btn btn-success',
-                ],
-            ])
         ;
     }
 
