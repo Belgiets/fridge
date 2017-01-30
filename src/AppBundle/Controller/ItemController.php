@@ -8,6 +8,8 @@ use AppBundle\Entity\Item;
 use AppBundle\Form\CategoryType;
 use AppBundle\Form\FoodType;
 use AppBundle\Form\ItemType;
+use AppBundle\Form\Model\SearchFilterItem;
+use AppBundle\Form\SearchFilterItemType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -24,14 +26,23 @@ class ItemController extends Controller
 {
     /**
      * @Route("/", name="items_index")
-     * @Method("GET")
      * @Template
      *
+     * @param Request $request
      * @return array
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $search = new SearchFilterItem();
+
+//        $animalCards = $this->getDoctrine()->getRepository('AppBundle:AnimalCard')->selectAnimalCardsByFilterForAdmin($model);
+
+        $form = $this->createForm(SearchFilterItemType::class, $search, [
+            'action' => $this->generateUrl('items_index')
+        ]);
+
         return [
+            'search_form' => $form->createView(),
             'items' => $this->getDoctrine()->getManager()->getRepository('AppBundle:Item')->findAll()
         ];
     }
