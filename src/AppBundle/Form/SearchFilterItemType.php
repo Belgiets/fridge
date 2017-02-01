@@ -23,47 +23,56 @@ class SearchFilterItemType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'description'
-                ]
+                ],
+                'label' => false
             ])
             ->add('food', EntityType::class, [
                 'class' => Food::class,
                 'choice_label' => 'name',
                 'attr' => [
                     'required' => false
-                ]
+                ],
+                'label' => false
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'attr' => [
                     'required' => false
-                ]
+                ],
+                'label' => false
             ])
             ->add('shelf', EntityType::class, [
                 'class' => Shelf::class,
                 'choice_label' => 'name',
                 'attr' => [
                     'required' => false
-                ]
+                ],
+                'label' => false
             ])
-            ->add('created_start', IntegerType::class, [
-                'required' => false,
+            ->add('created_start', TextType::class, [
                 'attr' => [
+                    'class' => 'datepicker',
                     'placeholder' => 'created from'
-                ]
-            ])
-            ->add('created_end', IntegerType::class, [
+                ],
                 'required' => false,
+                'label' => false
+            ])
+            ->add('created_end', TextType::class, [
                 'attr' => [
+                    'class' => 'datepicker',
                     'placeholder' => 'created to'
-                ]
+                ],
+                'required' => false,
+                'label' => false
             ])
             ->add('created_by', EntityType::class, [
-                'class' => BaseUser::class,
-                'choice_label' => 'name',
                 'attr' => [
                     'required' => false
-                ]
+                ],
+                'class' => BaseUser::class,
+                'choice_label' => 'name',
+                'label' => false
             ])
         ;
     }

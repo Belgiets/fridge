@@ -79,6 +79,10 @@ button.glyphicon {
   display: none;
 }
 
+.col-bottom {
+  margin-bottom: 15px;
+}
+
 body {
   //@include breakpoint($bp-sm) {
   //  background-color: #9fdf9f !important;

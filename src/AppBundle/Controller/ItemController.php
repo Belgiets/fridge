@@ -35,15 +35,21 @@ class ItemController extends Controller
     {
         $search = new SearchFilterItem();
 
-//        $animalCards = $this->getDoctrine()->getRepository('AppBundle:AnimalCard')->selectAnimalCardsByFilterForAdmin($model);
+        $items = $this->getDoctrine()->getRepository('AppBundle:Item')->selectItemsBySearchFilter($search);
 
         $form = $this->createForm(SearchFilterItemType::class, $search, [
             'action' => $this->generateUrl('items_index')
         ]);
 
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $items = $this->getDoctrine()->getRepository('AppBundle:Item')->selectItemsBySearchFilter($search);
+        }
+
         return [
             'search_form' => $form->createView(),
-            'items' => $this->getDoctrine()->getManager()->getRepository('AppBundle:Item')->findAll()
+            'items' => $items
         ];
     }
 

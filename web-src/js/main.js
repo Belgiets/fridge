@@ -1,6 +1,13 @@
 $(function () {
   $(document).ready(function () {
     /**
+     * Datepicker
+     */
+    $('.datepicker').datepicker({
+      dateFormat: "yy-mm-dd"
+    });
+
+    /**
      * Additional forms on Item main form
      */
     $('.btn-add-new').on('click', function(e) {

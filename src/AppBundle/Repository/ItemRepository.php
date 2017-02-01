@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Form\Model\SearchFilterItem;
+
 /**
  * ItemRepository
  *
@@ -10,4 +12,51 @@ namespace AppBundle\Repository;
  */
 class ItemRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function selectItemsBySearchFilter(SearchFilterItem $searchFilter) {
+        $qb = $this->createQueryBuilder('i');
+
+        if ($searchFilter->getDescription()) {
+            $qb
+                ->andWhere('i.description LIKE :description')
+                ->setParameter('description',  '%'. $searchFilter->getDescription() .'%');
+        }
+
+        if ($searchFilter->getFood()) {
+            $qb
+                ->andWhere('i.food = :food')
+                ->setParameter('food', $searchFilter->getFood());
+        }
+
+        if ($searchFilter->getCategory()) {
+            $qb
+                ->andWhere('i.category = :category')
+                ->setParameter('category', $searchFilter->getCategory());
+        }
+
+        if ($searchFilter->getShelf()) {
+            $qb
+                ->andWhere('i.shelf = :shelf')
+                ->setParameter('shelf', $searchFilter->getShelf());
+        }
+
+        if ($searchFilter->getCreatedStart()) {
+            $qb
+                ->andWhere('i.createdAt >= :createdStart')
+                ->setParameter('createdStart', $searchFilter->getCreatedStart());
+        }
+
+        if ($searchFilter->getCreatedEnd()) {
+            $qb
+                ->andWhere('i.createdAt <= :createdEnd')
+                ->setParameter('createdEnd', $searchFilter->getCreatedEnd());
+        }
+
+        if ($searchFilter->getCreatedBy()) {
+            $qb
+                ->andWhere('i.createdBy = :author')
+                ->setParameter('author', $searchFilter->getCreatedBy());
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }
