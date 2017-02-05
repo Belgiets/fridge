@@ -80,12 +80,17 @@ $(function () {
     /**
      * Custom reset button on items search-filter form
      */
-    $('a.form-reset').on('click', function() {
+    $('a.form-reset').on('click', function(e) {
+      e.preventDefault();
+
       var targetForm = $(this).closest('form'),
         selects = $('select', targetForm);
 
+      //reset input values
+      targetForm.trigger('reset');
+
+      //reset dropdowns
       $('option:first-child', selects).attr('selected', true);
-      targetForm.trigger('submit');
     });
   });
 });
