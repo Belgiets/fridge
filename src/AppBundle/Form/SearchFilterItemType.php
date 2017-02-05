@@ -10,6 +10,7 @@ use AppBundle\Form\Model\SearchFilterItem;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,25 +30,22 @@ class SearchFilterItemType extends AbstractType
             ->add('food', EntityType::class, [
                 'class' => Food::class,
                 'choice_label' => 'name',
-                'attr' => [
-                    'required' => false
-                ],
+                'placeholder' => 'Choose a food',
+                'required' => false,
                 'label' => false
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
-                'attr' => [
-                    'required' => false
-                ],
+                'placeholder' => 'Choose a category',
+                'required' => false,
                 'label' => false
             ])
             ->add('shelf', EntityType::class, [
                 'class' => Shelf::class,
                 'choice_label' => 'name',
-                'attr' => [
-                    'required' => false
-                ],
+                'placeholder' => 'Choose a shelf',
+                'required' => false,
                 'label' => false
             ])
             ->add('created_start', TextType::class, [
@@ -67,9 +65,8 @@ class SearchFilterItemType extends AbstractType
                 'label' => false
             ])
             ->add('created_by', EntityType::class, [
-                'attr' => [
-                    'required' => false
-                ],
+                'placeholder' => 'Choose created by',
+                'required' => false,
                 'class' => BaseUser::class,
                 'choice_label' => 'name',
                 'label' => false
