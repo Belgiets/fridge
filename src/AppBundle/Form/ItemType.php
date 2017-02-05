@@ -35,7 +35,7 @@ class ItemType extends AbstractType
                 'class' => Food::class,
                 'choice_label' => 'name',
                 'placeholder' => 'Choose a food',
-                'required' => true
+                'required' => true,
             ])
             ->add('shelf', EntityType::class, [
                 'class' => Shelf::class,

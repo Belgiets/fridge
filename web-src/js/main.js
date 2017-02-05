@@ -76,5 +76,16 @@ $(function () {
         }
       });
     }
+
+    /**
+     * Custom reset button on items search-filter form
+     */
+    $('a.form-reset').on('click', function() {
+      var targetForm = $(this).closest('form'),
+        selects = $('select', targetForm);
+
+      $('option:first-child', selects).attr('selected', true);
+      targetForm.trigger('submit');
+    });
   });
 });
