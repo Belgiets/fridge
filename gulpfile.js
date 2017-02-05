@@ -40,7 +40,7 @@ gulp.task('sass', function () {
 });
 
 // css
-gulp.task('css', function(){
+gulp.task('css', function () {
   gulp.src(cssSrc)
     .pipe(gulpif('*.css', minify()))
     .pipe(concat('styles.min.css'))
@@ -48,7 +48,7 @@ gulp.task('css', function(){
 });
 
 // uglify
-gulp.task('js', function() {
+gulp.task('js', function () {
   gulp.src(jsSrc)
     .pipe(gulpif('*.js', uglify()))
     .pipe(concat("main.min.js"))
@@ -56,24 +56,28 @@ gulp.task('js', function() {
 });
 
 // images
-gulp.task('images', function() {
-    gulp.src('web-src/img/*')
-      .pipe(imagemin())
-      .pipe(gulp.dest('./web/img'))
-  }
-);
-gulp.task('fonts', function() {
-        gulp.src('./node_modules/bootstrap/fonts/*')
-            .pipe(imagemin())
-            .pipe(gulp.dest('./web/fonts'))
-    }
-);
+gulp.task('images', function () {
+  gulp.src('web-src/img/*')
+    .pipe(imagemin())
+    .pipe(gulp.dest('./web/img'))
+
+  gulp.src('node_modules/jquery-ui-dist/images/*')
+    .pipe(imagemin())
+    .pipe(gulp.dest('./web/css/images'))
+});
+
+gulp.task('fonts', function () {
+  gulp.src('./node_modules/bootstrap/fonts/*')
+    .pipe(imagemin())
+    .pipe(gulp.dest('./web/fonts'))
+});
+
 gulp.task('clean', function () {
   return gulp.src(['web/css/*', 'web/js/libs/*'])
     .pipe(clean());
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
   // watch scss files
   gulp.watch(scssSrc, ['sass']);
 
